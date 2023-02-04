@@ -13,7 +13,7 @@ export default {
   methods: {
     login() {
       axios
-        .post("http://3.68.231.168/api/v1/user/login", {
+        .post("http://5.75.172.111/api/v1/user/login", {
           email: this.input.username,
           password: this.input.password,
         })
@@ -21,6 +21,7 @@ export default {
           if (r.status == 200) {
             axios.defaults.headers.common["Authorization"] =
               "Bearer " + r.data.access_token;
+            this.$router.push('/dashboard');
             console.log(axios.defaults.headers.common);
           }
         });
