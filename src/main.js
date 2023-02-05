@@ -1,15 +1,40 @@
-import { createApp } from 'vue'
-import { createPinia } from 'pinia'
-import App from './App.vue'
-import router from './router'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import {store} from './store/vuex';
-import './assets/main.css'
+import { createApp } from "vue";
+import { createRouter, createWebHistory } from "vue-router";
+import App from "./App.vue";
+import Login from "./views/login/LoginView.vue";
+import Dashboard from "./views/dashboard/DashboardView.vue";
+import { store } from "./store/vuex";
 
-const app = createApp(App)
+const router = new createRouter({
+  history: createWebHistory(import.meta.env.BASE_URL),
+  routes: [
+    {
+      path: "/",
+      redirect: "/dashboard",
+    },
+    {
+      path: "/login",
+      component: Login,
+      beforeEnter: (to, from, next) => {
+        if (store.state.isLoggedIn) {
+          next({ path: "/dashboard" });
+        } else {
+          next();
+        }
+      },
+    },
+    {
+      path: "/dashboard",
+      component: Dashboard,
+      beforeEnter: (to, from, next) => {
+        if (!store.state.isLoggedIn) {
+          next({ path: "/login" });
+        } else {
+          next();
+        }
+      },
+    },
+  ],
+});
 
-
-app.use(router)
-app.use(store);
-
-app.mount('#app')
+createApp(App).use(store).use(router).mount("#app");

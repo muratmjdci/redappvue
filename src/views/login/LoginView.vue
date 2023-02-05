@@ -15,7 +15,6 @@
             <label class="form-check-label" for="exampleCheck1">Check me out</label>
         </div>
         <button class="btn btn-primary" type="button" @click="login">Login</button>
-
     </form>
 </template>
 

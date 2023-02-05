@@ -14,24 +14,10 @@ export default {
   },
  
 }</script>
-
 <template>
-  <div v-if="!isLogin">
-  <header>
-      <img alt="Vue logo" class="logo" src="@/assets/apple.png" width="125" height="125" />
-
-      <div class="wrapper">
-        <HelloWorld msg="Redapp Admin Panel" />
-        <nav>
-          <!-- <RouterLink to="/">Home</RouterLink> -->
-          <!-- <RouterLink to="/login">Login</RouterLink> -->
-          <!-- <RouterLink to="/dashboard">Dashboard</RouterLink> -->
-        </nav>
-      </div>
-  </header>
+  <div>
+    <router-view />
   </div>
-
-  <LoginView />
 </template>
 
 <style scoped>
@@ -40,6 +26,10 @@ header {
   max-height: 100vh;
 }
 
+
+div{
+  color: var(--color-text);
+}
 .logo {
   display: block;
   margin: 0 auto 2rem;
