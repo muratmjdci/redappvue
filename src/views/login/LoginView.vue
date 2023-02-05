@@ -1,5 +1,5 @@
 <template>
-    <div class="pt-5">
+    <div class="container mt-5">
 
     <form>
         <div class="form-group">
@@ -16,7 +16,7 @@
             <input type="checkbox" class="form-check-input" id="exampleCheck1">
             <label class="form-check-label" for="exampleCheck1">Check me out</label>
         </div>
-        <button class="btn btn-primary" type="button" @click="login">Login</button>
+        <button class="btn btn-primary mt-1" type="button" @click="login">Login</button>
     </form>
 </div>
 
