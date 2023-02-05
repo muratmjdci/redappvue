@@ -3,20 +3,33 @@ import HelloWorld from './components/HelloWorld.vue'
 import LoginView from './views/login/LoginView.vue'
 </script>
 
+<script>
+
+import {store} from './store/vuex';
+export default {
+  data() {
+    return {
+      isLogin: store.state.isLogin
+    }
+  },
+ 
+}</script>
+
 <template>
+  <div v-if="!isLogin">
   <header>
-    <img alt="Vue logo" class="logo" src="@/assets/apple.png" width="125" height="125" />
+      <img alt="Vue logo" class="logo" src="@/assets/apple.png" width="125" height="125" />
 
-    <div class="wrapper">
-      <HelloWorld msg="Redapp Admin Panel" />
-
-      <nav>
-        <!-- <RouterLink to="/">Home</RouterLink> -->
-        <!-- <RouterLink to="/login">Login</RouterLink> -->
-        <!-- <RouterLink to="/dashboard">Dashboard</RouterLink> -->
-      </nav>
-    </div>
+      <div class="wrapper">
+        <HelloWorld msg="Redapp Admin Panel" />
+        <nav>
+          <!-- <RouterLink to="/">Home</RouterLink> -->
+          <!-- <RouterLink to="/login">Login</RouterLink> -->
+          <!-- <RouterLink to="/dashboard">Dashboard</RouterLink> -->
+        </nav>
+      </div>
   </header>
+  </div>
 
   <LoginView />
 </template>

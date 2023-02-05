@@ -1,9 +1,9 @@
 import { createApp } from "vue";
 import { createStore } from "vuex";
-import createPersistedState from 'vuex-persistedstate';
+import createPersistedState from "vuex-persistedstate";
 export const store = createStore({
   plugins: [
-     createPersistedState({
+    createPersistedState({
       storage: window.sessionStorage,
     }),
   ],
@@ -16,6 +16,7 @@ export const store = createStore({
   mutations: {
     changeToken(state, val) {
       state.token = val;
+      alert(state.token)
     },
     changeLoginStatus(state, val) {
       state.isLogin = val;
