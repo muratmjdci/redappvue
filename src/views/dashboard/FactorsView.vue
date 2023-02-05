@@ -20,14 +20,19 @@ import HeaderView from '../../components/Header.vue'
                             <th scope="col">Is Paid</th>
                             <th scope="col">One Time Usage</th>
                             <th scope="col">Action</th>
+                            <th scope="col">
+                                <Router-Link to="/create_factor">
+                                        <a class="btn btn-success" href="#">Create</a>
+                                </Router-Link>
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr v-for="item in items">
                             <td>{{ item.id }}</td>
                             <td>{{ item.label }}</td>
-                            <td>%{{ item.percentage }}</td>
-                            <td>{{ item.valid_minutes }}min</td>
+                            <td>% {{ item.percentage }}</td>
+                            <td>{{ item.valid_minutes }} min</td>
                             <td>{{ item.is_paid }}</td>
                             <td>{{ item.one_time_usage }}</td>
                             <td>
@@ -79,7 +84,7 @@ export default {
     methods: {
         get_factors() {
             axios
-                .get("http://5.75.172.111/api/v1/factors")
+                .get("http://3.68.231.168/api/v1/factors")
                 .then((r) => {
                     this.items = r.data
                     console.log(this.items)

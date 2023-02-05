@@ -4,11 +4,13 @@ import App from "./App.vue";
 import Login from "./views/login/LoginView.vue";
 import Dashboard from "./views/dashboard/DashboardView.vue";
 import Factors from "./views/dashboard/FactorsView.vue";
+import CreateFactor from "./views/dashboard/CreateFactorView.vue";
 import EditFactors from "./views/dashboard/EditUpdateFactor.vue";
 import Faq from "./views/dashboard/faq/FaqView.vue";
 import Settings from "./views/dashboard/settings/SettingsView.vue";
 import Users from "./views/dashboard/users/UsersView.vue";
 import EditFaq from "./views/dashboard/faq/EditUpdateFaq.vue";
+
 
 import { store } from "./store/vuex";
 
@@ -101,6 +103,19 @@ const router = new createRouter({
       name: "editfactor",
 
       component: EditFactors,
+      beforeEnter: (to, from, next) => {
+        if (!store.state.isLoggedIn) {
+          next({ path: "/login" });
+        } else {
+          next();
+        }
+      },
+    },
+    {
+      path: "/create_factor",
+      name: "create_factor",
+
+      component: CreateFactor,
       beforeEnter: (to, from, next) => {
         if (!store.state.isLoggedIn) {
           next({ path: "/login" });

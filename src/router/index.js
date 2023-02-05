@@ -23,6 +23,11 @@ const router = createRouter({
       path: "/factors",
       name: "factors",
       component: () => import("../views/dashboard/FactorsView.vue"),
+    },
+    {
+      path: "/create_factor",
+      name: "create_factor",
+      component: () => import("../views/dashboard/CreateFactorView.vue"),
     }
   ],
 });

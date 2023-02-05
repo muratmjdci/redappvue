@@ -13,7 +13,7 @@ import HeaderView from '../../components/Header.vue'
             <label for="text" class="col-4 col-form-label">Gorev Basligi</label>
             <div class="col-8">
                 <input id="text" name="text" placeholder="Label" type="text" class="form-control"
-                    aria-describedby="textHelpBlock" required="true" v-model="label" readonly="{{ is_paid }}">
+                    aria-describedby="textHelpBlock" required="true" v-model="label">
                 <span id="textHelpBlock" class="form-text text-muted">Gorevin basligi</span>
             </div>
         </div>
@@ -175,20 +175,6 @@ import HeaderView from '../../components/Header.vue'
 export default {
     data() {
         return {
-            id: this.$store.selectedFactor.id,
-            label: this.$store.selectedFactor.label,
-            detail: this.$store.selectedFactor.detail,
-            is_paid: this.$store.selectedFactor.is_paid,
-            valid_minutes: this.$store.selectedFactor.valid_minutes,
-            one_time_usage: this.$store.selectedFactor.one_time_usage,
-            percentage: this.$store.selectedFactor.percentage,
-            image: this.$store.selectedFactor.image,
-            factor_type: this.$store.selectedFactor.factor_type,
-
-            quest_type: this.$store.selectedFactor.extra_attributes.quest_type,
-            count: this.$store.selectedFactor.extra_attributes.count,
-            playstore_url: this.$store.selectedFactor.extra_attributes.playstore_url,
-            package_name: this.$store.selectedFactor.extra_attributes.package_name,
         }
 
     },
