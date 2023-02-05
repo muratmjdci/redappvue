@@ -13,6 +13,7 @@ export const store = createStore({
     isLoggedIn: false,
     loginError: null,
     token: "",
+    selectedFactor : Object,
   },
   mutations: {
     setUser(state, user) {

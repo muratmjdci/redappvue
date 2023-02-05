@@ -17,7 +17,18 @@ export default defineConfig({
       },
     },
   },
-  plugins: [vue(), vueJsx()],
+  plugins: [
+    vue({
+      template: {
+        compilerOptions: {
+          isCustomElement: (tag) => {
+            return tag.startsWith('ion-') // (return true)
+          }
+        }
+      }
+    }),
+    vueJsx(),
+  ],
   resolve: {
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),
