@@ -17,7 +17,6 @@
         <button class="btn btn-primary" type="button" @click="login">Login</button>
 
     </form>
-
 </template>
 
 

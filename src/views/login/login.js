@@ -21,8 +21,11 @@ export default {
           if (r.status == 200) {
             axios.defaults.headers.common["Authorization"] =
               "Bearer " + r.data.access_token;
-            this.$router.push('/dashboard');
+            this.$store.commit("changeToken", 'Bearer' + r.data.access_token);
+            this.$store.commit("changeLoginStatus", true);
+            console.log(this.$store.state);
             console.log(axios.defaults.headers.common);
+            this.$router.push("/dashboard");
           }
         });
     },

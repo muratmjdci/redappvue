@@ -5,10 +5,8 @@
         <nav>
         <RouterLink to="/factors">Factor</RouterLink>
       </nav>
+
     </form>
     <RouterView />
 
 </template>
-
-
-<!-- <script src="./dashboard.js"/> -->
