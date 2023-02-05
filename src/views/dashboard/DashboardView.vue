@@ -25,9 +25,9 @@
 export default {
   methods: {
     logOut() {
-      console.log(this.$store.state)
-      // this.$store.commit('logout')
-      // this.$router.push('login')
+      // console.log(this.$store.state)
+      this.$store.commit('logout')
+      this.$router.push('login')
     }
   }
 }

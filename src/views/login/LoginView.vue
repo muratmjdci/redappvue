@@ -1,4 +1,6 @@
 <template>
+    <div class="pt-5">
+
     <form>
         <div class="form-group">
             <label for="exampleInputEmail1">Email address</label>
@@ -16,6 +18,8 @@
         </div>
         <button class="btn btn-primary" type="button" @click="login">Login</button>
     </form>
+</div>
+
 </template>
 
 
