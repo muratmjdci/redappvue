@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios_service from "../../service/axios_service"
 
 export default {
   name: "login",
@@ -12,19 +12,18 @@ export default {
   },
   methods: {
     login() {
-      axios
-        .post("http://3.68.231.168/api/v1/user/login", {
+      axios_service.http
+        .post("user/login", {
           email: this.input.username,
           password: this.input.password,
         })
         .then((r) => {
           if (r.status == 200) {
-            axios.defaults.headers.common["Authorization"] =
-              "Bearer " + r.data.access_token;
-            this.$store.commit("changeToken", 'Bearer ' + r.data.access_token);
+            // this.$store.commit("changeToken", 'Bearer ' + r.data.access_token);
+            // this.$store.token = 'Bearer ' + r.data.access_token;
             this.$store.commit("changeLoginStatus", true);
+            localStorage.setItem("token", r.data.access_token)
             console.log(this.$store.state);
-            console.log(axios.defaults.headers.common);
             this.$router.push("/dashboard");
           }
         });

@@ -22,7 +22,7 @@ import HeaderView from '../../components/Header.vue'
                             <th scope="col">Action</th>
                             <th scope="col">
                                 <Router-Link to="/create_factor">
-                                        <a class="btn btn-success" href="#">Create</a>
+                                    <a class="btn btn-success" href="#">Create</a>
                                 </Router-Link>
                             </th>
                         </tr>
@@ -45,7 +45,7 @@ import HeaderView from '../../components/Header.vue'
                                 </a>
                             </td>
                             <td>
-                                <a href="">
+                                <a @click="deleteFactor(item)">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                         class="bi bi-trash" viewBox="0 0 16 16">
                                         <path
@@ -69,6 +69,7 @@ import HeaderView from '../../components/Header.vue'
 
 <script>
 import axios from "axios";
+import axios_service from '../../service/axios_service';
 
 
 export default {
@@ -83,8 +84,8 @@ export default {
     },
     methods: {
         get_factors() {
-            axios
-                .get("http://3.68.231.168/api/v1/factors")
+            axios_service.http
+                .get("factors")
                 .then((r) => {
                     this.items = r.data
                     console.log(this.items)
@@ -94,6 +95,16 @@ export default {
             console.log(history)
             this.$store.selectedFactor = factorItem;
             this.$router.push('/editFactor');
+        },
+        deleteFactor(factorItem) {
+            axios_service.http.delete("factors/" + factorItem.id).then((r) => {
+                console.log(r)
+                this.get_factors()
+
+            }).catch((err) => {
+                console.log(err)
+
+            })
         }
     },
 };

@@ -35,6 +35,10 @@
                                         <a class="nav-link" href="#">Settings</a>
                                     </Router-Link>
                                 </li>
+                                <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
+                                        <a class="nav-link" href="#" @click="logOut">Logout</a>
+
+                                </li>
 
                             </ul>
                         </div>
@@ -683,3 +687,15 @@ body.dark .logo img {
     filter: brightness(100%);
 }
 </style>
+
+<script>
+export default {
+  methods: {
+    logOut() {
+      // console.log(this.$store.state)
+      this.$store.commit("logout");
+      this.$router.push("login");
+    },
+  },
+};
+</script>
