@@ -17,7 +17,7 @@ axios.interceptors.request.use(
   }
 );
 const http = axios.create({
-  baseURL: "http://3.68.231.168/api/v1/",
+  baseURL: "http://5.75.172.111/api/v1/",
 });
 
 export default { http };
