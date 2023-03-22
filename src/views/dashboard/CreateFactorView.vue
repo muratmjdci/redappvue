@@ -41,11 +41,11 @@ import HeaderView from '../../components/Header.vue'
             <div class="form-group row" v-if="factor_type === 'awarded_quest'">
                 <label class="col-4">Gorev tipi</label>
                 <div class="col-8">
-                    <div class="custom-control custom-radio custom-control-inline">
+                    <!-- <div class="custom-control custom-radio custom-control-inline">
                         <input name="radio2" id="radio2_0" type="radio" class="custom-control-input"
                             value="download_app" v-model="quest_type" aria-describedby="radio2HelpBlock">
                         <label for="radio2_0" class="custom-control-label">Uygulama Indir</label>
-                    </div>
+                    </div> -->
                     <div class="custom-control custom-radio custom-control-inline">
                         <input name="radio2" id="radio2_1" type="radio" class="custom-control-input" value="watch_ad"
                             v-model="quest_type" aria-describedby="radio2HelpBlock">
@@ -68,7 +68,7 @@ import HeaderView from '../../components/Header.vue'
                     </div>
                 </div>
             </div>
-            <div class="form-group row" v-if="quest_type === 'download_app'">
+            <!-- <div class="form-group row" v-if="quest_type === 'download_app'">
                 <label for="text3" class="col-4 col-form-label">Playstore Url</label>
                 <div class="col-8">
                     <div class="input-group">
@@ -88,7 +88,7 @@ import HeaderView from '../../components/Header.vue'
                     <input id="text4" v-model="package_name" name="text4" placeholder="Uygulama Paket Adi" type="text"
                         class="form-control">
                 </div>
-            </div>
+            </div> -->
             <div class="form-group row">
                 <label for="text1" class="col-4 col-form-label">Faktor Etkisi</label>
                 <div class="col-8">
