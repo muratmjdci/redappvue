@@ -28,6 +28,11 @@ const router = createRouter({
       path: "/create_factor",
       name: "create_factor",
       component: () => import("../views/dashboard/CreateFactorView.vue"),
+    },
+    {
+      path: "/withdraw",
+      name: "withdraw",
+      component: () => import("../views/dashboard/withdraw/WithdrawView.vue"),
     }
   ],
 });

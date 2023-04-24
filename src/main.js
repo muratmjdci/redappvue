@@ -10,6 +10,7 @@ import Faq from "./views/dashboard/faq/FaqView.vue";
 import Settings from "./views/dashboard/settings/SettingsView.vue";
 import Users from "./views/dashboard/users/UsersView.vue";
 import EditFaq from "./views/dashboard/faq/EditUpdateFaq.vue";
+import Withdraw from "./views/dashboard/withdraw/WithdrawView.vue";
 
 
 import { store } from "./store/vuex";
@@ -116,6 +117,20 @@ const router = new createRouter({
       name: "create_factor",
 
       component: CreateFactor,
+      beforeEnter: (to, from, next) => {
+        if (!store.state.isLoggedIn) {
+          next({ path: "/login" });
+        } else {
+          next();
+        }
+      },
+    },
+
+    {
+      path: "/withdraw",
+      name: "withdraw",
+
+      component: Withdraw,
       beforeEnter: (to, from, next) => {
         if (!store.state.isLoggedIn) {
           next({ path: "/login" });

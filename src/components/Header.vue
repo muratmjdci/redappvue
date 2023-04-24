@@ -36,6 +36,14 @@
                                     </Router-Link>
                                 </li>
                                 <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
+                                    <Router-Link to="/withdraw">
+                                        <a class="nav-link" href="#">Withdraw</a>
+                                    </Router-Link>
+                                </li>
+
+
+                                
+                                <li class="nav-item pl-4 pl-md-0 ml-0 ml-md-4">
                                         <a class="nav-link" href="#" @click="logOut">Logout</a>
 
                                 </li>

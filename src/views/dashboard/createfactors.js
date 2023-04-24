@@ -14,7 +14,7 @@ export default {
   methods: {
     login() {
       axios_service.http
-        .post("http://5.75.172.111/api/v1/user/factors", {
+        .post("http://3.68.231.168/api/v1/user/factors", {
           email: this.input.username,
           password: this.input.password,
         })
