@@ -61,7 +61,7 @@ export default {
     methods: {
         getRequests() {
             axios_service.http
-                .get("withdraw/list")
+                .get("withdraw/all-list")
                 .then((r) => {
                     this.items = r.data;
                     console.log(r.data)

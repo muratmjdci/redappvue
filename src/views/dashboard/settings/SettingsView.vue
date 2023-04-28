@@ -48,6 +48,31 @@ import HeaderView from '../../../components/Header.vue'
                 </div>
             </div>
 
+
+
+            <div class="form-group row">
+                <label for="text2" class="col-4 col-form-label">Minimum Withdraw Rate</label>
+                <div class="col-8">
+                    <div class="input-group">
+
+                        <input v-model="minimum_withdraw" id="text2" name="text2" placeholder="Reference Rate" type="text"
+                            class="form-control" aria-describedby="text2HelpBlock" required="required">
+                    </div>
+                    <span id="text2HelpBlock" class="form-text text-muted">Minimum Withdraw Rate</span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="text2" class="col-4 col-form-label">Maximum Withdraw Rate</label>
+                <div class="col-8">
+                    <div class="input-group">
+                        <input v-model="maximum_withdraw" id="text2" name="text2" placeholder="Maximum cekim oranini"
+                            type="text" class="form-control" aria-describedby="text2HelpBlock" required="required">
+                    </div>
+                    <span id="text2HelpBlock" class="form-text text-muted">Maximum cekim oranini belirler.</span>
+                </div>
+            </div>
+
             <p v-if="errors.length">
                 <b>Hata(lar):</b>
             <ul style="list-style-type:none;">
@@ -57,7 +82,7 @@ import HeaderView from '../../../components/Header.vue'
 
             <div class="form-group row">
                 <div class="offset-4 col-8">
-                    <button name="submit" type="submit" on @click="post_settings" class="btn btn-primary">Guncelle</button>
+                    <div name="submit" @click="post_settings" class="btn btn-primary">Guncelle</div>
                 </div>
             </div>
         </form>
@@ -73,7 +98,9 @@ export default {
             errors: [],
             mining_rate: 0,
             ad_interval: 0,
-            reference_rate: 0
+            reference_rate: 0,
+            minimum_withdraw: 0,
+            maximum_withdraw: 0
         }
     },
     created() {
@@ -87,6 +114,8 @@ export default {
                     this.reference_rate = r.data.reference_rate;
                     this.ad_interval = r.data.ad_interval;
                     this.mining_rate = r.data.mining_rate;
+                    this.minimum_withdraw = r.data.withdrawl_rate.min;
+                    this.maximum_withdraw = r.data.withdrawl_rate.max;
                 });
         },
         post_settings() {
@@ -101,6 +130,14 @@ export default {
                         "mining_rate": this.mining_rate,
                         "ad_interval": this.ad_interval,
                         "reference_rate": this.reference_rate,
+                        "withdrawl_rate": {
+                            "min": this.minimum_withdraw,
+                            "max": this.maximum_withdraw
+                        },
+                        "dynamic_settings": {
+                            "FIREBASE_NOTIFICATION_TITLE": "Red App",
+                            "FIREBASE_NOTIFICATION_BODY": "You have a new notification"
+                        },
                     })
                     .then((r) => {
                         console.log(r.data)
