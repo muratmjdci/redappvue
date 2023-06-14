@@ -293,7 +293,7 @@ export default {
                         "dynamic_settings": {
                             "FIREBASE_NOTIFICATION_TITLE": "Red App",
                             "FIREBASE_NOTIFICATION_BODY": "You have a new notification",
-                            "FORTUNE_INTERVAL": this.FORTUNE_INTERVAL,
+                            "FORTUNE_INTERVAL": parseInt(this.FORTUNE_INTERVAL),
                             "FORTUNE_WHEEL": { "percentages": this.FORTUNE_WHEEL },
                             "ad_enabled": this.adEnabled,
                             "games_enabled": this.gamesEnabled,
