@@ -11,7 +11,7 @@ export default defineConfig({
   server: {
     proxy: {
       "^/users": {
-        target: "http://3.68.231.168/",
+        target: "http://5.75.172.111/",
         ws: true,
         changeOrigin: true,
       },

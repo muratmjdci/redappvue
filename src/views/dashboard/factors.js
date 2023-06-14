@@ -11,7 +11,7 @@ export default {
   methods: {
     get_factors() {
       axios
-        .get("http://3.68.231.168/api/v1/factors")
+        .get("http://5.75.172.111/api/v1/factors")
         .then((r) => {
           this.data = r.data
           console.log(this.data)
