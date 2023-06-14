@@ -3,6 +3,71 @@
 import HeaderView from '../../../components/Header.vue'
 </script>
 
+<style>
+/* The switch - the box around the slider */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* The slider */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked+.slider {
+    background-color: #2196F3;
+}
+
+input:focus+.slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked+.slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+</style>
+
 <template>
     <HeaderView />
     <div class="container">
@@ -73,6 +138,71 @@ import HeaderView from '../../../components/Header.vue'
                 </div>
             </div>
 
+            <div class="form-group row">
+                <label for="text2" class="col-4 col-form-label">Fortune Rates</label>
+                <div class="col-8">
+                    <div class="input-group">
+                        <input v-model="fortuneValues" id="text2" name="text2" placeholder="Carkta cikacak oranlar (1,2,3)"
+                            type="text" class="form-control" aria-describedby="text2HelpBlock" required="required">
+                    </div>
+                    <span id="text2HelpBlock" class="form-text text-muted">Carkta cikacak oranlar (10,20,30)</span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="text2" class="col-4 col-form-label">Fortune Interval</label>
+                <div class="col-8">
+                    <div class="input-group">
+                        <input v-model="FORTUNE_INTERVAL" id="text2" name="text2" placeholder="Carkin cevrilme suresi"
+                            type="text" class="form-control" aria-describedby="text2HelpBlock" required="required">
+                    </div>
+                    <span id="text2HelpBlock" class="form-text text-muted">Carkin cevrilme suresi</span>
+
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <label for="text2" class="col-4 col-form-label">Google ads</label>
+                <div class="col-8">
+                    <div class="input-group">
+
+                        <label class="switch">
+                            <input type="checkbox" v-model="adEnabled" @click="onChange">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <span id="text2HelpBlock" class="form-text text-muted">Google reklamlarinin gosterilip
+                        gosterilmeyecegini belirler</span>
+                </div>
+            </div>
+
+
+            <div class="form-group row" v-if="!adEnabled">
+                <label for="text2" class="col-4 col-form-label">Remote Ad Url</label>
+                <div class="col-8">
+                    <div class="input-group">
+                        <input v-model="remoteAdUrl" id="text2" name="text2" placeholder="https://www.google.com"
+                            type="text" class="form-control" aria-describedby="text2HelpBlock" required="required">
+                    </div>
+                    <span id="text2HelpBlock" class="form-text text-muted">Reklamlar kapaliyken yonlendirilecek web
+                        sitesi</span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="text2" class="col-4 col-form-label">Mini Games</label>
+                <div class="col-8">
+                    <div class="input-group">
+                        <label class="switch">
+                            <input type="checkbox" v-model="gamesEnabled">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <span id="text2HelpBlock" class="form-text text-muted">Mini oyunlarin aktiflik durumunu duzenler</span>
+                </div>
+            </div>
+
             <p v-if="errors.length">
                 <b>Hata(lar):</b>
             <ul style="list-style-type:none;">
@@ -85,6 +215,7 @@ import HeaderView from '../../../components/Header.vue'
                     <div name="submit" @click="post_settings" class="btn btn-primary">Guncelle</div>
                 </div>
             </div>
+
         </form>
     </div>
 </template>
@@ -100,13 +231,23 @@ export default {
             ad_interval: 0,
             reference_rate: 0,
             minimum_withdraw: 0,
-            maximum_withdraw: 0
+            maximum_withdraw: 0,
+            fortuneValues: "",
+            adEnabled: false,
+            gamesEnabled: false,
+            remoteAdUrl: "",
+            FORTUNE_INTERVAL: 0,
+            FORTUNE_WHEEL: []
         }
     },
     created() {
         this.get_default()
     },
+
     methods: {
+        onChange() {
+            console.log(this.adEnabled)
+        },
         get_default() {
             axios_service.http
                 .get("settings")
@@ -116,6 +257,14 @@ export default {
                     this.mining_rate = r.data.mining_rate;
                     this.minimum_withdraw = r.data.withdrawl_rate.min;
                     this.maximum_withdraw = r.data.withdrawl_rate.max;
+                    this.FORTUNE_INTERVAL = r.data.dynamic_settings.FORTUNE_INTERVAL;
+                    r.data.dynamic_settings.FORTUNE_WHEEL.percentages.forEach(element => {
+                        if (this.fortuneValues == "") return this.fortuneValues = element
+                        this.fortuneValues = this.fortuneValues + "," + element
+                    });
+                    r.data.dynamic_settings.ad_enabled ? this.adEnabled = true : this.adEnabled = false;
+                    r.data.dynamic_settings.games_enabled ? this.gamesEnabled = true : this.gamesEnabled = false;
+                    this.remoteAdUrl = r.data.dynamic_settings.remoteAdUrl;
                 });
         },
         post_settings() {
@@ -123,7 +272,14 @@ export default {
             if (!this.mining_rate) this.errors.push("Mining rate bos olamaz.")
             if (!this.ad_interval) this.errors.push("Ad interval bos olamaz.")
             if (!this.reference_rate) this.errors.push("Reference rate bos olamaz.")
-
+            if (!this.minimum_withdraw) this.errors.push("Minimum withdraw bos olamaz.")
+            if (!this.maximum_withdraw) this.errors.push("Maximum withdraw bos olamaz.")
+            if (this.fortuneValues) {
+                this.fortuneValues = this.fortuneValues.split(",")
+                this.FORTUNE_WHEEL = this.fortuneValues.map((item) => {
+                    return parseInt(item)
+                })
+            }
             if (this.errors)
                 axios_service.http
                     .post("settings", {
@@ -136,7 +292,12 @@ export default {
                         },
                         "dynamic_settings": {
                             "FIREBASE_NOTIFICATION_TITLE": "Red App",
-                            "FIREBASE_NOTIFICATION_BODY": "You have a new notification"
+                            "FIREBASE_NOTIFICATION_BODY": "You have a new notification",
+                            "FORTUNE_INTERVAL": this.FORTUNE_INTERVAL,
+                            "FORTUNE_WHEEL": { "percentages": this.FORTUNE_WHEEL },
+                            "ad_enabled": this.adEnabled,
+                            "games_enabled": this.gamesEnabled,
+                            "remoteAdUrl": this.remoteAdUrl
                         },
                     })
                     .then((r) => {

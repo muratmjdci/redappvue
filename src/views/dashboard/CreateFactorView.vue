@@ -41,11 +41,11 @@ import HeaderView from '../../components/Header.vue'
             <div class="form-group row" v-if="factor_type === 'awarded_quest'">
                 <label class="col-4">Gorev tipi</label>
                 <div class="col-8">
-                    <!-- <div class="custom-control custom-radio custom-control-inline">
+                    <div class="custom-control custom-radio custom-control-inline">
                         <input name="radio2" id="radio2_0" type="radio" class="custom-control-input"
-                            value="download_app" v-model="quest_type" aria-describedby="radio2HelpBlock">
-                        <label for="radio2_0" class="custom-control-label">Uygulama Indir</label>
-                    </div> -->
+                            value="do_earn" v-model="quest_type" aria-describedby="radio2HelpBlock">
+                        <label for="radio2_0" class="custom-control-label">Yap Kazan</label>
+                    </div>
                     <div class="custom-control custom-radio custom-control-inline">
                         <input name="radio2" id="radio2_1" type="radio" class="custom-control-input" value="watch_ad"
                             v-model="quest_type" aria-describedby="radio2HelpBlock">
@@ -63,6 +63,21 @@ import HeaderView from '../../components/Header.vue'
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <i class="fa fa-sort-numeric-asc"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row" v-if="quest_type === 'do_earn'">
+                <label for="text5" class="col-4 col-form-label">Target URL</label>
+                <div class="col-8">
+                    <div class="input-group">
+                        <input id="text5" name="text5" placeholder="https://twitter.com/elonmusk" v-model="targetUrl" type="text"
+                            class="form-control">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <i class="fa fa-link"></i>
                             </div>
                         </div>
                     </div>
@@ -191,6 +206,7 @@ export default {
             count: "",
             playstore_url: "",
             package_name: "",
+            targetUrl: "",
         }
     },
     methods: {
@@ -209,7 +225,8 @@ export default {
                     quest_type: this.quest_type,
                     count: this.count,
                     playstore_url: this.playstore_url,
-                    package_name: this.package_name
+                    package_name: this.package_name,
+                    target_url: this.targetUrl
                 }
             }).then((e) => {
                 console.log(e)
