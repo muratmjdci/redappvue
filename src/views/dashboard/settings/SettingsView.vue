@@ -283,12 +283,12 @@ export default {
             if (this.errors)
                 axios_service.http
                     .post("settings", {
-                        "mining_rate": this.mining_rate,
-                        "ad_interval": this.ad_interval,
-                        "reference_rate": this.reference_rate,
+                        "mining_rate": parseInt(this.mining_rate),
+                        "ad_interval": parseInt(this.ad_interval),
+                        "reference_rate": parseInt(this.reference_rate),
                         "withdrawl_rate": {
-                            "min": this.minimum_withdraw,
-                            "max": this.maximum_withdraw
+                            "min": parseInt(this.minimum_withdraw),
+                            "max": parseInt(this.maximum_withdraw)
                         },
                         "dynamic_settings": {
                             "FIREBASE_NOTIFICATION_TITLE": "Red App",
