@@ -10,7 +10,16 @@ import HeaderView from '../../../components/Header.vue'
         <h2 class="mt-5">
             Toplam istek sayisi: {{ items.length }}
         </h2>
+        <div class="custom-control custom-switch">
+            <label for="text2" class="col-form-label">Aktif Talepler</label>
+            <label class="switch ml-5 mr-5">
+                <input type="checkbox" @change="onChangeList" v-model="activeList">
+                <span class="slider round"></span>
+            </label>
+            <label for="text2" class="col-form-label">Eski Talepler</label>
+        </div>
     </center>
+
     <div class="section full-height container-fluid">
         <div class="pt-5">
             <div class="col">
@@ -22,7 +31,7 @@ import HeaderView from '../../../components/Header.vue'
                             <th scope="col">Address</th>
                             <th scope="col">Amount</th>
                             <th scope="col">Status</th>
-                            <th scope="col">Action</th>
+                            <th v-if="!activeList" scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -32,7 +41,8 @@ import HeaderView from '../../../components/Header.vue'
                             <td>{{ item.address }}</td>
                             <td>{{ formatAmount(item.amount) }}</td>
                             <td>{{ item.withdraw_status }}</td>
-                            <td>
+
+                            <td v-if="!activeList">
                                 <button class="btn btn-primary" @click="approve(item.id)">Approve</button>
                                 <button class="btn btn-danger ml-1" @click="reject(item.id)">Reject</button>
                             </td>
@@ -53,13 +63,21 @@ export default {
     data() {
         return {
             items: [],
+            activeList: false
         }
     },
     created() {
         this.getRequests()
     },
     methods: {
-        getRequests() {
+        onChangeList(e) {
+            if(this.activeList) {
+                this.getPastRequests()
+            } else {
+                this.getRequests()
+            }
+        },
+        getPastRequests() {
             axios_service.http
                 .get("withdraw/all-list")
                 .then((r) => {
@@ -67,16 +85,24 @@ export default {
                     console.log(r.data)
                 });
         },
+        getRequests() {
+            axios_service.http
+                .get("withdraw/list")
+                .then((r) => {
+                    this.items = r.data;
+                    console.log(r.data)
+                });
+        },
         approve(id) {
             axios_service.http
-                .post("withdraw/accept", { withdraw_id: id, status: "done"})
+                .post("withdraw/accept", { withdraw_id: id, status: "done" })
                 .then((r) => {
                     this.getRequests()
                 });
         },
-        reject(id)  {
+        reject(id) {
             axios_service.http
-                .post("withdraw/accept", { withdraw_id: id, status: "rejected"})
+                .post("withdraw/accept", { withdraw_id: id, status: "rejected" })
                 .then((r) => {
                     this.getRequests()
                 });
